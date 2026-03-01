@@ -1,0 +1,22 @@
+name: "Daily Assignment Update"
+
+on:
+  schedule:
+    - cron: '0 14 * * *'  # 7:30 PM IST daily
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: "Step with 23f2004613@ds.study.iitm.ac.in"
+        run: |
+          echo "# Daily update $(date)" >> README.md
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add README.md
+          git commit -m "Daily commit $(date)"
+          git push
