@@ -16,9 +16,10 @@ jobs:
 
       - name: "Step with 23f2004613@ds.study.iitm.ac.in"
         run: |
-          echo "# Daily update $(date)" >> README.md
+          echo "# Daily update $(date -u '+%Y-%m-%d %H:%M:%S UTC') $(date +%s)" >> README.md
           git config user.name github-actions[bot]
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"  # ← OFFICIAL BOT EMAIL
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Daily commit $(date)"
-          git push origin main  # ← SPECIFY BRANCH
+          git commit -m "Daily commit $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push origin main
+
