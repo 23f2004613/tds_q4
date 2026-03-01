@@ -12,12 +12,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+          persist-credentials: true  # ← ADD THIS
+
       - name: "Step with 23f2004613@ds.study.iitm.ac.in"
         run: |
           echo "# Daily update $(date)" >> README.md
-          git config user.name github-actions
-          git config user.email actions@github.com
+          git config user.name github-actions[bot]
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"  # ← OFFICIAL BOT EMAIL
           git add README.md
           git commit -m "Daily commit $(date)"
-          git push
+          git push origin main  # ← SPECIFY BRANCH
