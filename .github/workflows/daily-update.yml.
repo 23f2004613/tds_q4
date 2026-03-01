@@ -1,0 +1,35 @@
+name: Daily Update
+
+on:
+  schedule:
+    # Run once per day at 02:00 UTC (you may need to convert to your timezone)
+    - cron: '0 2 * * *'
+
+jobs:
+  update-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # Let us push back to the repo
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 2: Your email must appear in the step name
+      - name: Update README with 23f2004613@ds.study.iitm.ac.in
+        run: |
+          # Add a timestamp line to README.md
+          echo "Auto‑updated on $(date)" >> README.md
+
+          # Stage the change
+          git add README.md
+
+          # Commit it
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -m "Daily auto‑commit: $(date)"
+
+          # Push back to the default branch
+          git push
